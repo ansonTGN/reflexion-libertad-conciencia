@@ -79,3 +79,13 @@ Los HTML finales **ya están incluidos**: no necesitas Python, pip ni dependenci
 - La portada de redes utiliza `/assets/portada-social.webp`; algunas plataformas necesitan una URL absoluta para obtener la vista previa: actualízala cuando se conozca el dominio real.
 
 © 2026 Ángel A. Urbina Sánchez.
+
+
+## Selector de idiomas en móvil (v4)
+
+En pantallas de hasta 620 px aparece una barra de enlaces ES · CA · EN · PT · FR.
+Cada botón abre directamente la página del idioma, sin depender de JavaScript ni
+del comportamiento del selector nativo del navegador. La página actual se marca
+con `aria-current="page"`. En pantallas grandes permanece el selector desplegable.
+Los enlaces funcionan con rutas absolutas desde la raíz del dominio de Netlify.
+Para cambios futuros, `python3 build_multilingual.py` conserva esta navegación.

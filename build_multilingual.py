@@ -53,6 +53,20 @@ def render(code):
     mark=soup.new_tag('span',attrs={'aria-hidden':'true'});mark.string='◎'
     wrapper.append(mark);wrapper.append(select)
     toolbar.insert(0,wrapper)
+    # En móviles, enlaces reales: más fiables que <select> en Safari/iOS y Android.
+    mobile=soup.new_tag('nav',attrs={'class':'mobile-language-nav','aria-label':{
+        'es':'Leer en otro idioma','ca':'Llegeix en una altra llengua',
+        'en':'Read in another language','pt':'Ler noutro idioma',
+        'fr':'Lire dans une autre langue'}[code]})
+    for lg in CODES:
+        link=soup.new_tag('a',href=('/' if lg=='es' else f'/{lg}/'))
+        link['lang']=lg
+        link['hreflang']=lg
+        link['aria-label']=LABELS[lg]
+        if lg==code: link['aria-current']='page'
+        link.string={'es':'ES','ca':'CA','en':'EN','pt':'PT','fr':'FR'}[lg]
+        mobile.append(link)
+    soup.select_one('.topbar').insert_after(mobile)
     share=soup.select_one('#copy-link');share.string='↗ '+t['share']
     switch=soup.select_one('#theme-toggle');switch.string='☾ '+t['dark']
     for key in ['share','copy','copy_prompt','dark','light']:

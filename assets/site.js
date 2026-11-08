@@ -5,8 +5,17 @@
   const phrase = key => body.dataset[key] || '';
   const switcher = document.getElementById('language-select');
   switcher?.addEventListener('change', () => {
-    const suffix = location.hash || '';
-    location.assign(switcher.value + suffix);
+    const target = new URL(switcher.value, location.origin);
+    // Los IDs de las secciones son compartidos entre las cinco versiones.
+    target.hash = location.hash;
+    window.location.href = target.href;
+  });
+  // Al volver con el navegador, Safari puede restaurar el formulario anterior.
+  addEventListener('pageshow', () => {
+    if (!switcher) return;
+    const path = location.pathname;
+    const lang = ['ca','en','pt','fr'].find(code => path === '/' + code + '/' || path === '/' + code + '/index.html');
+    switcher.value = lang ? '/' + lang + '/' : '/';
   });
   const themeBtn = document.getElementById('theme-toggle');
   const storedTheme = (() => { try { return localStorage.getItem('lectura-theme'); } catch { return null; } })();

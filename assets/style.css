@@ -35,7 +35,7 @@ body{font-feature-settings:"kern";text-rendering:optimizeLegibility}
 @media(max-width:720px){.hero{padding:3.1rem 1.25rem 0}.hero-inner{grid-template-columns:1fr;gap:2.5rem}.hero h1{font-size:clamp(3rem,10vw,4.8rem)}.hero .meta{margin-top:1.5rem}.hero-visual{min-height:300px;height:340px;margin:0 -1.25rem;border-radius:0;box-shadow:none}.hero-visual figcaption{bottom:1rem;left:1.2rem}.main-grid{padding-top:3rem}.article{font-size:1.1rem}.article h2{margin-top:3.5rem}.article section:first-child>p:first-child::first-letter{font-size:4.2rem}}
 @media print{.hero-visual{display:none}.hero{padding:0 0 1.5rem}.hero-inner{display:block}.hero-cta{display:none}.article blockquote{border-color:#aaa}}
 /* Multilingual edition: language switcher and long translated headings */
-.language-picker{display:inline-flex;align-items:center;gap:.35rem;border:1px solid var(--line);border-radius:999px;padding:.28rem .65rem;background:var(--surface);color:var(--text);font-family:inherit;font-size:.82rem}
+.language-picker{display:inline-flex;align-items:center;gap:.35rem;border:1px solid var(--border);border-radius:999px;padding:.28rem .65rem;background:var(--surface);color:var(--text);font-family:inherit;font-size:.82rem}
 .language-picker select{color:inherit;border:0;background:transparent;font:inherit;font-weight:650;max-width:125px;cursor:pointer;padding:.16rem .1rem;outline-offset:3px}
 .language-picker select option{color:#162632;background:#fff}
 .toolbar{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;justify-content:flex-end}
@@ -43,3 +43,22 @@ body{font-feature-settings:"kern";text-rendering:optimizeLegibility}
 .small-note{font-size:.77rem;color:var(--muted);margin:.7rem 0 0}
 @media(max-width:620px){.topbar{align-items:flex-start;gap:.85rem;flex-wrap:wrap}.toolbar{width:100%;justify-content:space-between}.hero h1{font-size:clamp(2.5rem,9.3vw,4.1rem)}.language-picker select{max-width:118px}}
 @media print{.language-picker{display:none}}
+
+/* v4 - navegación multilingüe móvil robusta, accesible, sin depender de JS */
+.mobile-language-nav{display:none}
+@media(max-width:620px){
+  .topbar{display:flex;flex-wrap:wrap;align-items:center;gap:.65rem;padding:1rem 1rem .75rem}
+  .topbar .brand{flex:1 1 100%;font-size:.72rem;line-height:1.35;overflow-wrap:anywhere}
+  .topbar .toolbar{display:flex;width:100%;justify-content:flex-end;gap:.6rem;flex-wrap:nowrap}
+  .language-picker{display:none!important}
+  .toolbar button{min-height:44px;padding:.62rem .8rem;font-size:.81rem;white-space:nowrap}
+  .mobile-language-nav{display:flex;align-items:center;justify-content:center;gap:.35rem;padding:.55rem .7rem .7rem;background:var(--bg);border-bottom:1px solid var(--border);overflow-x:auto;overscroll-behavior-inline:contain;-webkit-overflow-scrolling:touch}
+  .mobile-language-nav a{display:inline-flex;justify-content:center;align-items:center;min-width:48px;min-height:46px;padding:.55rem .7rem;border:1px solid var(--border);border-radius:999px;color:var(--text);background:var(--surface);font-size:.82rem;font-weight:750;line-height:1;text-decoration:none;touch-action:manipulation;flex-shrink:0}
+  .mobile-language-nav a[aria-current="page"]{background:var(--accent);color:var(--bg);border-color:var(--accent)}
+  .mobile-language-nav a:focus-visible{outline:3px solid #e1a257;outline-offset:2px}
+}
+@media(max-width:360px){
+ .mobile-language-nav{gap:.2rem;padding-inline:.45rem}
+ .mobile-language-nav a{min-width:43px;padding-inline:.5rem}
+}
+@media print{.mobile-language-nav{display:none!important}}
