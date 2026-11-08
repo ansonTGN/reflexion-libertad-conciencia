@@ -6,8 +6,10 @@
   const switcher = document.getElementById('language-select');
   switcher?.addEventListener('change', () => {
     const allowed = new Set(['/', '/ca/', '/en/', '/pt/', '/fr/']);
-    if (!allowed.has(switcher.value)) return;
+    const chosen = new URL(switcher.value, location.origin);
+    if (!allowed.has(chosen.pathname)) return;
     const target = new URL(switcher.value, location.origin);
+    target.searchParams.set('v','6');
     // Los IDs de las secciones son compartidos entre las cinco versiones.
     target.hash = location.hash;
     window.location.href = target.href;
@@ -17,7 +19,7 @@
     if (!switcher) return;
     const path = location.pathname;
     const lang = ['ca','en','pt','fr'].find(code => path === '/' + code + '/' || path === '/' + code + '/index.html');
-    switcher.value = lang ? '/' + lang + '/' : '/';
+    switcher.value = (lang ? '/' + lang + '/' : '/') + '?v=6';
   });
   const themeBtn = document.getElementById('theme-toggle');
   const storedTheme = (() => { try { return localStorage.getItem('lectura-theme'); } catch { return null; } })();

@@ -104,3 +104,31 @@ Si Netlify ya está conectado a la rama main, se desplegará automáticamente.
 
 Importante: los archivos HTML se regeneran con `python3 build_multilingual.py`.
 No editar solo el HTML sin actualizar la fuente/generador, o se perderá el cambio.
+
+
+## v6 — solución de caché y selector móvil
+
+**Diagnóstico:** `netlify.toml` guardaba los recursos `/assets/*` durante 7 días.
+Los teléfonos podían mostrar una mezcla de HTML reciente y CSS/JS anteriores.
+
+**Solución:**
+- Cinco enlaces reales ES/CA/EN/PT/FR, visibles en la barra fija móvil.
+- Cada cambio usa una navegación completa a `/?v=6`, `/ca/?v=6`, etc.
+- Los archivos CSS y JS incluyen `?v=6` para actualizarse inmediatamente.
+- Netlify indica `Cache-Control: no-cache, max-age=0, must-revalidate`.
+- El generador `build_multilingual.py` conserva estos cambios al regenerar.
+
+Tras descomprimir en el repositorio existente:
+
+```bash
+cd ~/Descargas/reflexion-libertad-web
+python3 -m http.server 8000
+# Para probar desde el teléfono, usa http://IP-LOCAL:8000/?v=6
+# Detén el servidor con Ctrl+C; publica:
+git add -A
+git commit -m "Corregir navegación móvil y caché multilingüe v6"
+git push origin main
+```
+
+Netlify despliega automáticamente si está enlazado con `main`. Si aún aparece la
+versión anterior, abre la ruta con `?v=6` o usa una pestaña privada.

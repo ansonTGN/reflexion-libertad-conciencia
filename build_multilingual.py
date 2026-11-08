@@ -29,6 +29,10 @@ def render(code):
         head.find('link',attrs={'rel':'icon'})['href']='/assets/favicon.svg'
         head.find('script',attrs={'src':'assets/site.js'})['src']='/assets/site.js'
         soup.select_one('.hero-visual img')['src']='/assets/biblioteca-libertad.webp'
+    # Evita que Safari/Chrome en móvil mezclen HTML nuevo con CSS/JS en caché.
+    head.find('link', attrs={'rel':'stylesheet'})['href'] = '/assets/style.css?v=6'
+    head.find('script', attrs={'src': True})['src'] = '/assets/site.js?v=6'
+    head.append(soup.new_tag('meta', attrs={'http-equiv':'Cache-Control','content':'no-cache, no-store, must-revalidate'}))
     head.append(BeautifulSoup('<meta name="robots" content="index,follow">','html.parser'))
     for lg in CODES:
         href='/' if lg=='es' else f'/{lg}/'
@@ -45,7 +49,7 @@ def render(code):
     select['aria-label']={'es':'Idioma del artículo','ca':'Idioma de l’article','en':'Article language','pt':'Idioma do artigo','fr':'Langue de l’article'}[code]
     select['title']=select['aria-label']
     for lg in CODES:
-        op=soup.new_tag('option',value=('/' if lg=='es' else f'/{lg}/'))
+        op=soup.new_tag('option',value=(('/' if lg=='es' else f'/{lg}/') + '?v=6'))
         op.string=LABELS[lg]
         if lg==code: op['selected']='selected'
         select.append(op)
@@ -59,7 +63,7 @@ def render(code):
         'en':'Read in another language','pt':'Ler noutro idioma',
         'fr':'Lire dans une autre langue'}[code]})
     for lg in CODES:
-        link=soup.new_tag('a',href=('/' if lg=='es' else f'/{lg}/'))
+        link=soup.new_tag('a',href=(('/' if lg=='es' else f'/{lg}/') + '?v=6'))
         link['lang']=lg
         link['hreflang']=lg
         link['aria-label']=LABELS[lg]
