@@ -77,6 +77,10 @@ En ocasiones cambian porque reconocen errores. Otras veces porque la sociedad de
 
 Estos procesos no son necesariamente excluyentes.
 
+Hay un ejemplo especialmente sensible en nuestro tiempo: la solidaridad con la población palestina. El sufrimiento de las personas civiles, la exigencia de protección de sus derechos y la aspiración a una paz justa merecen consideración por sí mismos. Al mismo tiempo, las banderas y las causas humanitarias pueden adquirir una función de identificación colectiva y movilización política. Reconocer esa posibilidad no convierte la solidaridad en oportunismo ni permite juzgar por igual las motivaciones de quienes se manifiestan.
+
+Precisamente por respeto a las personas afectadas, conviene distinguir el compromiso humanitario de la utilización de cualquier tragedia para clasificar a los demás en bandos morales. La dignidad de las víctimas no debería depender de la utilidad que su historia tenga para ningún movimiento.
+
 Por eso me parece insuficiente juzgar una transformación ideológica únicamente por sus nuevas consignas.
 
 La pregunta importante es qué ocurre detrás de las palabras.
@@ -325,3 +329,12 @@ html=f'''<!doctype html>
 </body></html>'''
 (root/'index.html').write_text(html,encoding='utf8')
 print('Generated sections',len(sections),'word count',len(re.sub('<[^>]+>',' ',html).split()))
+
+# La generación del HTML mantiene el diseño editorial mejorado.
+if __name__ == "__main__":
+    page = (root / "index.html")
+    output = page.read_text(encoding="utf-8")
+    output = output.replace('<meta name="twitter:card" content="summary">', '<meta name="twitter:card" content="summary_large_image">\n  <meta property="og:image" content="/assets/portada-social.webp">\n  <meta name="twitter:image" content="/assets/portada-social.webp">')
+    output = output.replace('<div class="hero"><div class="hero-inner">', '<div class="hero"><div class="hero-inner"><div class="hero-copy">')
+    output = output.replace('    <div class="meta"><span>Ángel A. Urbina Sánchez</span><span>8 de noviembre de 2026</span><span>Ensayo</span></div>\n  </div></div>', '    <div class="meta"><span>Ángel A. Urbina Sánchez</span><span>8 de noviembre de 2026</span><span>Ensayo filosófico</span></div>\n    <a class="hero-cta" href="#contenido">Comenzar a leer <span aria-hidden="true">↓</span></a>\n  </div><figure class="hero-visual"><img src="assets/biblioteca-libertad.webp" alt="Una persona camina por una biblioteca monumental hacia la luz exterior" width="1648" height="928"><figcaption>La libertad comienza con una pregunta.</figcaption></figure></div></div>')
+    page.write_text(output, encoding="utf-8")

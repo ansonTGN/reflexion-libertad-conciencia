@@ -97,3 +97,10 @@ Con el repositorio conectado, Netlify suele realizar un despliegue automático c
 - El contenido del artículo de *La Razón* **no se reproduce**: se enlaza al original.
 - No se ha incluido `sitemap.xml` ni URL canónica porque el dominio final depende del despliegue.
 - Para una imagen de previsualización en LinkedIn/WhatsApp, se puede añadir más adelante `og:image` con su URL pública absoluta.
+
+
+## Versión editorial ilustrada
+
+La portada incluye una imagen original generada para este ensayo (`assets/biblioteca-libertad.webp`), además de una versión adaptada a redes (`assets/portada-social.webp`). Se incluye una reflexión sobre la causa palestina, distinguiendo la solidaridad humanitaria de sus posibles usos políticos, en el capítulo «Las ideologías cambian...».
+
+**Edición**: El texto de referencia está en `build_page.py`; ejecuta `python3 build_page.py` para regenerar `index.html`. El despliegue de Netlify sigue siendo estático (`publish = "."`).
