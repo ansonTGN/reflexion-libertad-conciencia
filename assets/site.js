@@ -5,6 +5,8 @@
   const phrase = key => body.dataset[key] || '';
   const switcher = document.getElementById('language-select');
   switcher?.addEventListener('change', () => {
+    const allowed = new Set(['/', '/ca/', '/en/', '/pt/', '/fr/']);
+    if (!allowed.has(switcher.value)) return;
     const target = new URL(switcher.value, location.origin);
     // Los IDs de las secciones son compartidos entre las cinco versiones.
     target.hash = location.hash;

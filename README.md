@@ -89,3 +89,18 @@ del comportamiento del selector nativo del navegador. La página actual se marca
 con `aria-current="page"`. En pantallas grandes permanece el selector desplegable.
 Los enlaces funcionan con rutas absolutas desde la raíz del dominio de Netlify.
 Para cambios futuros, `python3 build_multilingual.py` conserva esta navegación.
+
+
+## v5 — compatibilidad móvil
+
+La navegación de idiomas en móvil utiliza cinco enlaces HTML reales (`/`, `/ca/`,
+`/en/`, `/pt/`, `/fr/`), con zonas táctiles de al menos 45 × 48 px. Se muestra
+como barra fija en la parte superior al desplazarse. No necesita JavaScript.
+El idioma actual queda identificado mediante `aria-current="page"` y color
+contrastado. En escritorio permanece el menú desplegable.
+
+Para publicar: `git add -A && git commit -m "Optimizar experiencia móvil v5" && git push origin main`.
+Si Netlify ya está conectado a la rama main, se desplegará automáticamente.
+
+Importante: los archivos HTML se regeneran con `python3 build_multilingual.py`.
+No editar solo el HTML sin actualizar la fuente/generador, o se perderá el cambio.
